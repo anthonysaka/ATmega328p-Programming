@@ -1,0 +1,467 @@
+
+Part_1___Leds_On_Change_Pos.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000002bc  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000268  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000002bc  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002ec  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000c0  00000000  00000000  0000032c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000d5e  00000000  00000000  000003ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000884  00000000  00000000  0000114a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000006a7  00000000  00000000  000019ce  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  0000013c  00000000  00000000  00002078  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000590  00000000  00000000  000021b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000034f  00000000  00000000  00002744  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000090  00000000  00000000  00002a93  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 7e 00 	call	0xfc	; 0xfc <main>
+  78:	0c 94 32 01 	jmp	0x264	; 0x264 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <system_setup>:
+  // I/O Function to general setting initial system.
+  void system_setup(void)
+  {
+	  ///////////////////////////////    IN SETTING    ///////////////////////////////
+	  
+	  DDRB &= ~(1<<DDB0);    // Set PB.0 as Input, THE PUSHBUTTON_00 IS CONNECTED. --> D8 (Decrement)
+  80:	20 98       	cbi	0x04, 0	; 4
+	  DDRB &= ~(1<<DDB1);    // Set PB.1 as Input, THE PUSHBUTTON_01 IS CONNECTED. --> D9 (Increment)
+  82:	21 98       	cbi	0x04, 1	; 4
+	
+	  PORTB = BIT_OFF(PORTB,0); 	// Set low for High Impedance PB.0 -> D8.- 10K RESISTOR CONNECTED.
+  84:	85 b1       	in	r24, 0x05	; 5
+  86:	8e 7f       	andi	r24, 0xFE	; 254
+  88:	85 b9       	out	0x05, r24	; 5
+  8a:	85 b9       	out	0x05, r24	; 5
+	  PORTB = BIT_OFF(PORTB,1); 	// Set low for High Impedance PB.1 -> D9.- 10K RESISTOR CONNECTED.
+  8c:	85 b1       	in	r24, 0x05	; 5
+  8e:	8d 7f       	andi	r24, 0xFD	; 253
+  90:	85 b9       	out	0x05, r24	; 5
+  92:	85 b9       	out	0x05, r24	; 5
+	  
+	  ///////////////////////////////    OUT SETTING    ///////////////////////////////
+	  
+	  DDRC |=  (1<<DDC1) | (1<<DDC2) | (1<<DDC3) | (1<<DDC4) | (1<<DDC5);    // Set PC.1 - PC.5 as output. 
+  94:	87 b1       	in	r24, 0x07	; 7
+  96:	8e 63       	ori	r24, 0x3E	; 62
+  98:	87 b9       	out	0x07, r24	; 7
+	  DDRB |= (1<<DDB5);  //LED#9 -> PB5
+  9a:	25 9a       	sbi	0x04, 5	; 4
+	 
+	  
+	  PORTC =  BIT_OFF(PORTC,1) | BIT_OFF(PORTC,2) | BIT_OFF(PORTC,3) | BIT_OFF(PORTC,4) | BIT_OFF(PORTC,5);   // Set PC.1 - PC.5 initial Low ('0').
+  9c:	48 b1       	in	r20, 0x08	; 8
+  9e:	54 2f       	mov	r21, r20
+  a0:	5d 7f       	andi	r21, 0xFD	; 253
+  a2:	58 b9       	out	0x08, r21	; 8
+  a4:	98 b1       	in	r25, 0x08	; 8
+  a6:	49 2f       	mov	r20, r25
+  a8:	4b 7f       	andi	r20, 0xFB	; 251
+  aa:	48 b9       	out	0x08, r20	; 8
+  ac:	98 b1       	in	r25, 0x08	; 8
+  ae:	39 2f       	mov	r19, r25
+  b0:	37 7f       	andi	r19, 0xF7	; 247
+  b2:	38 b9       	out	0x08, r19	; 8
+  b4:	98 b1       	in	r25, 0x08	; 8
+  b6:	29 2f       	mov	r18, r25
+  b8:	2f 7e       	andi	r18, 0xEF	; 239
+  ba:	28 b9       	out	0x08, r18	; 8
+  bc:	98 b1       	in	r25, 0x08	; 8
+  be:	89 2f       	mov	r24, r25
+  c0:	8f 7d       	andi	r24, 0xDF	; 223
+  c2:	88 b9       	out	0x08, r24	; 8
+  c4:	45 2b       	or	r20, r21
+  c6:	34 2b       	or	r19, r20
+  c8:	23 2b       	or	r18, r19
+  ca:	82 2b       	or	r24, r18
+  cc:	88 b9       	out	0x08, r24	; 8
+	  PORTB = BIT_OFF(PORTB,5) ; // Set PB.5 initial Low ('0').
+  ce:	85 b1       	in	r24, 0x05	; 5
+  d0:	8f 7d       	andi	r24, 0xDF	; 223
+  d2:	85 b9       	out	0x05, r24	; 5
+  d4:	85 b9       	out	0x05, r24	; 5
+  d6:	08 95       	ret
+
+000000d8 <delay_counter_led_9>:
+      
+                                 ///////////////////////////////    FUNCTIONS   ///////////////////////////////
+												
+// 1. Function to delay counter X Sec with Duty Cycle 50%.													
+bool delay_counter_led_9(uint8_t* counter_pos, uint8_t top_count_sec)
+{
+  d8:	fc 01       	movw	r30, r24
+	if (*counter_pos >= top_count_sec) // Checking  the count has reached top.
+  da:	90 81       	ld	r25, Z
+  dc:	96 17       	cp	r25, r22
+  de:	18 f0       	brcs	.+6      	; 0xe6 <delay_counter_led_9+0xe>
+	{
+		*counter_pos = 0;  // Reset counter and return bool value True.
+  e0:	10 82       	st	Z, r1
+		return true;
+  e2:	81 e0       	ldi	r24, 0x01	; 1
+  e4:	08 95       	ret
+	}
+	else      //This condition is for the top count not reached.
+	{
+		*counter_pos = *counter_pos + 1; // if the top count not reached, Increment count.
+  e6:	9f 5f       	subi	r25, 0xFF	; 255
+  e8:	90 83       	st	Z, r25
+		return false;
+  ea:	80 e0       	ldi	r24, 0x00	; 0
+	}
+}
+  ec:	08 95       	ret
+
+000000ee <pb0_read>:
+
+// 2. Function to Read PB #0 (PB.0) 'Down count', and return true if pressed.
+bool pb0_read(void)
+{
+	return (PINB & (1 << PORTB0)) != 0;
+  ee:	83 b1       	in	r24, 0x03	; 3
+}
+  f0:	81 70       	andi	r24, 0x01	; 1
+  f2:	08 95       	ret
+
+000000f4 <pb1_read>:
+
+// 3. Function to Read PB #0 (PB.1) 'Up count', and return true if pressed.
+bool pb1_read(void)
+{
+	// Read PB #1 (PB.1) 'Up count', and return true if pressed.
+	return (PINB & (1 << PORTB1)) != 0;
+  f4:	83 b1       	in	r24, 0x03	; 3
+}
+  f6:	86 95       	lsr	r24
+  f8:	81 70       	andi	r24, 0x01	; 1
+  fa:	08 95       	ret
+
+000000fc <main>:
+	  PORTB = BIT_OFF(PORTB,5) ; // Set PB.5 initial Low ('0').
+	
+  }
+                                         ////////// MAIN //////////
+int main(void)
+{
+  fc:	cf 93       	push	r28
+  fe:	df 93       	push	r29
+ 100:	cd b7       	in	r28, 0x3d	; 61
+ 102:	de b7       	in	r29, 0x3e	; 62
+ 104:	61 97       	sbiw	r28, 0x11	; 17
+ 106:	0f b6       	in	r0, 0x3f	; 63
+ 108:	f8 94       	cli
+ 10a:	de bf       	out	0x3e, r29	; 62
+ 10c:	0f be       	out	0x3f, r0	; 63
+ 10e:	cd bf       	out	0x3d, r28	; 61
+    // Initial System.
+    system_setup();
+ 110:	0e 94 40 00 	call	0x80	; 0x80 <system_setup>
+    
+    uint8_t blink_delay_count_05 = 0; //Variable to store count to 05 sec (100 counts @ 5 mSec).
+ 114:	19 82       	std	Y+1, r1	; 0x01
+	uint16_t count_limit = 0;
+ 116:	1b 82       	std	Y+3, r1	; 0x03
+ 118:	1a 82       	std	Y+2, r1	; 0x02
+
+    pb_debouncer_t pb1_up; // Create a variable to debouncer.
+	pb_debouncer_t pb0_down; // Create a variable to debouncer.
+	
+ 
+    pbd_init(&pb1_up, PBD_HIGH_COUNT, PBD_LOW_COUNT, false);  //Initing Debouncer objects.
+ 11a:	20 e0       	ldi	r18, 0x00	; 0
+ 11c:	48 e2       	ldi	r20, 0x28	; 40
+ 11e:	68 e2       	ldi	r22, 0x28	; 40
+ 120:	ce 01       	movw	r24, r28
+ 122:	04 96       	adiw	r24, 0x04	; 4
+ 124:	0e 94 c9 00 	call	0x192	; 0x192 <pbd_init>
+    while (1) 
+    {
+	    if (delay_counter_led_9(&blink_delay_count_05,_050_SEC_COUNT))// Checking time to blink LED_9 (Blue) 
+		{
+			//Toggle Led_9.
+			BIT_TOGGLE(PORTB,5);// 0.50 sec Off and 0.50 sec On , so T = 1 , f = 1/T = 1/1 = 1 Hz. LED_9 Blinking at 1 Hz.
+ 128:	68 94       	set
+ 12a:	ff 24       	eor	r15, r15
+ 12c:	f5 f8       	bld	r15, 5
+    pbd_init(&pb1_up, PBD_HIGH_COUNT, PBD_LOW_COUNT, false);  //Initing Debouncer objects.
+    
+	                                      /////***** EXECUTION BLOCK (PRINCIPAL EXECUTION) - Backbone - *****/////
+    while (1) 
+    {
+	    if (delay_counter_led_9(&blink_delay_count_05,_050_SEC_COUNT))// Checking time to blink LED_9 (Blue) 
+ 12e:	64 e6       	ldi	r22, 0x64	; 100
+ 130:	ce 01       	movw	r24, r28
+ 132:	01 96       	adiw	r24, 0x01	; 1
+ 134:	0e 94 6c 00 	call	0xd8	; 0xd8 <delay_counter_led_9>
+ 138:	88 23       	and	r24, r24
+ 13a:	19 f0       	breq	.+6      	; 0x142 <main+0x46>
+		{
+			//Toggle Led_9.
+			BIT_TOGGLE(PORTB,5);// 0.50 sec Off and 0.50 sec On , so T = 1 , f = 1/T = 1/1 = 1 Hz. LED_9 Blinking at 1 Hz.
+ 13c:	85 b1       	in	r24, 0x05	; 5
+ 13e:	8f 25       	eor	r24, r15
+ 140:	85 b9       	out	0x05, r24	; 5
+		}
+		
+		bool pb1_up_count_raw = pb1_read(); // Read raw PB #1 input (PB Raw Up Count).
+ 142:	0e 94 7a 00 	call	0xf4	; 0xf4 <pb1_read>
+ 146:	08 2f       	mov	r16, r24
+		bool pb0_down_count_raw = pb0_read(); // Read raw PB #0 input (PB Raw Down Count).
+ 148:	0e 94 77 00 	call	0xee	; 0xee <pb0_read>
+ 14c:	18 2f       	mov	r17, r24
+		
+		pbd_process(&pb1_up, pb1_up_count_raw); // Debouncer PB #1 'Up count' and 
+ 14e:	60 2f       	mov	r22, r16
+ 150:	ce 01       	movw	r24, r28
+ 152:	04 96       	adiw	r24, 0x04	; 4
+ 154:	0e 94 d2 00 	call	0x1a4	; 0x1a4 <pbd_process>
+		pbd_process(&pb0_down, pb0_down_count_raw); // Debouncer PB #0 'Down count' and get stable value.
+ 158:	61 2f       	mov	r22, r17
+ 15a:	ce 01       	movw	r24, r28
+ 15c:	0b 96       	adiw	r24, 0x0b	; 11
+ 15e:	0e 94 d2 00 	call	0x1a4	; 0x1a4 <pbd_process>
+		
+		bool pb1_up_count_edge = pbd_get_rising_edge(&pb1_up,false); //get rising edge (flanco pos) to pb1_up_count.
+ 162:	60 e0       	ldi	r22, 0x00	; 0
+ 164:	ce 01       	movw	r24, r28
+ 166:	04 96       	adiw	r24, 0x04	; 4
+ 168:	0e 94 f1 00 	call	0x1e2	; 0x1e2 <pbd_get_rising_edge>
+ 16c:	18 2f       	mov	r17, r24
+		bool pb0_down_count_edge = pbd_get_rising_edge(&pb0_down,false); //get risign edge (flanco pos) to pb0_down_count.
+ 16e:	60 e0       	ldi	r22, 0x00	; 0
+ 170:	ce 01       	movw	r24, r28
+ 172:	0b 96       	adiw	r24, 0x0b	; 11
+ 174:	0e 94 f1 00 	call	0x1e2	; 0x1e2 <pbd_get_rising_edge>
+	
+	
+	            /////***** PART 1 *****/////
+				 
+			 show_leds_1_process(&count_limit, pb1_up_count_edge, pb0_down_count_edge);
+ 178:	48 2f       	mov	r20, r24
+ 17a:	61 2f       	mov	r22, r17
+ 17c:	ce 01       	movw	r24, r28
+ 17e:	02 96       	adiw	r24, 0x02	; 2
+ 180:	0e 94 f6 00 	call	0x1ec	; 0x1ec <show_leds_1_process>
+               /////***** PART 3 *****/////
+			   
+		   //  show_leds_3_process(&count_limit, pb1_up_count_edge, pb0_down_count_edge);
+		
+
+		__builtin_avr_delay_cycles(DELAY_5_mSEC); // Principal Clock ( Master Clock )
+ 184:	8f e1       	ldi	r24, 0x1F	; 31
+ 186:	9e e4       	ldi	r25, 0x4E	; 78
+ 188:	01 97       	sbiw	r24, 0x01	; 1
+ 18a:	f1 f7       	brne	.-4      	; 0x188 <main+0x8c>
+ 18c:	00 c0       	rjmp	.+0      	; 0x18e <main+0x92>
+ 18e:	00 00       	nop
+    }
+ 190:	ce cf       	rjmp	.-100    	; 0x12e <main+0x32>
+
+00000192 <pbd_init>:
+
+bool pbd_get_raw_input(pb_debouncer_t* pbd)
+{
+	// Return the stable filtered value
+	return pbd->raw_input;
+}
+ 192:	fc 01       	movw	r30, r24
+ 194:	60 83       	st	Z, r22
+ 196:	41 83       	std	Z+1, r20	; 0x01
+ 198:	12 82       	std	Z+2, r1	; 0x02
+ 19a:	23 83       	std	Z+3, r18	; 0x03
+ 19c:	24 83       	std	Z+4, r18	; 0x04
+ 19e:	15 82       	std	Z+5, r1	; 0x05
+ 1a0:	16 82       	std	Z+6, r1	; 0x06
+ 1a2:	08 95       	ret
+
+000001a4 <pbd_process>:
+ 1a4:	fc 01       	movw	r30, r24
+ 1a6:	15 82       	std	Z+5, r1	; 0x05
+ 1a8:	16 82       	std	Z+6, r1	; 0x06
+ 1aa:	64 83       	std	Z+4, r22	; 0x04
+ 1ac:	83 81       	ldd	r24, Z+3	; 0x03
+ 1ae:	68 13       	cpse	r22, r24
+ 1b0:	02 c0       	rjmp	.+4      	; 0x1b6 <pbd_process+0x12>
+ 1b2:	12 82       	std	Z+2, r1	; 0x02
+ 1b4:	08 95       	ret
+ 1b6:	82 81       	ldd	r24, Z+2	; 0x02
+ 1b8:	8f 5f       	subi	r24, 0xFF	; 255
+ 1ba:	66 23       	and	r22, r22
+ 1bc:	41 f0       	breq	.+16     	; 0x1ce <pbd_process+0x2a>
+ 1be:	90 81       	ld	r25, Z
+ 1c0:	89 17       	cp	r24, r25
+ 1c2:	68 f0       	brcs	.+26     	; 0x1de <pbd_process+0x3a>
+ 1c4:	12 82       	std	Z+2, r1	; 0x02
+ 1c6:	81 e0       	ldi	r24, 0x01	; 1
+ 1c8:	83 83       	std	Z+3, r24	; 0x03
+ 1ca:	85 83       	std	Z+5, r24	; 0x05
+ 1cc:	08 95       	ret
+ 1ce:	91 81       	ldd	r25, Z+1	; 0x01
+ 1d0:	89 17       	cp	r24, r25
+ 1d2:	28 f0       	brcs	.+10     	; 0x1de <pbd_process+0x3a>
+ 1d4:	12 82       	std	Z+2, r1	; 0x02
+ 1d6:	13 82       	std	Z+3, r1	; 0x03
+ 1d8:	81 e0       	ldi	r24, 0x01	; 1
+ 1da:	86 83       	std	Z+6, r24	; 0x06
+ 1dc:	08 95       	ret
+ 1de:	82 83       	std	Z+2, r24	; 0x02
+ 1e0:	08 95       	ret
+
+000001e2 <pbd_get_rising_edge>:
+bool pbd_get_rising_edge(pb_debouncer_t* pbd, bool clear)
+{
+ 1e2:	fc 01       	movw	r30, r24
+	// Get rising edge flag
+	bool rising_edge = pbd->rising_edge;
+ 1e4:	85 81       	ldd	r24, Z+5	; 0x05
+	
+	// Clear flag if asked
+	if (clear)
+ 1e6:	61 11       	cpse	r22, r1
+	pbd->rising_edge = false;
+ 1e8:	15 82       	std	Z+5, r1	; 0x05
+	
+	// Return rising edge flag
+	return rising_edge;
+}
+ 1ea:	08 95       	ret
+
+000001ec <show_leds_1_process>:
+
+// 1. This fuction is for the part one.
+void show_leds_1_process(uint16_t* counter_pos, bool pb_up, bool pb_down)
+{
+	
+	if (pb_up && *counter_pos < 4) // Checking pushbutton up and counter, to only do this, if PB up is pressed and the position led is [4] or less.
+ 1ec:	66 23       	and	r22, r22
+ 1ee:	c1 f0       	breq	.+48     	; 0x220 <show_leds_1_process+0x34>
+ 1f0:	fc 01       	movw	r30, r24
+ 1f2:	20 81       	ld	r18, Z
+ 1f4:	31 81       	ldd	r19, Z+1	; 0x01
+ 1f6:	24 30       	cpi	r18, 0x04	; 4
+ 1f8:	31 05       	cpc	r19, r1
+ 1fa:	90 f4       	brcc	.+36     	; 0x220 <show_leds_1_process+0x34>
+	{
+		*counter_pos = *counter_pos + 1; //Increment counter_pos.
+ 1fc:	2f 5f       	subi	r18, 0xFF	; 255
+ 1fe:	3f 4f       	sbci	r19, 0xFF	; 255
+ 200:	31 83       	std	Z+1, r19	; 0x01
+ 202:	20 83       	st	Z, r18
+		PORTC = (1<<(5 - *counter_pos)); //Left shift to set bit high between ( PC.5 - PC.1) --> (Led[0] - Led[4])
+ 204:	85 e0       	ldi	r24, 0x05	; 5
+ 206:	90 e0       	ldi	r25, 0x00	; 0
+ 208:	ac 01       	movw	r20, r24
+ 20a:	42 1b       	sub	r20, r18
+ 20c:	53 0b       	sbc	r21, r19
+ 20e:	81 e0       	ldi	r24, 0x01	; 1
+ 210:	90 e0       	ldi	r25, 0x00	; 0
+ 212:	02 c0       	rjmp	.+4      	; 0x218 <show_leds_1_process+0x2c>
+ 214:	88 0f       	add	r24, r24
+ 216:	99 1f       	adc	r25, r25
+ 218:	4a 95       	dec	r20
+ 21a:	e2 f7       	brpl	.-8      	; 0x214 <show_leds_1_process+0x28>
+ 21c:	88 b9       	out	0x08, r24	; 8
+ 21e:	08 95       	ret
+	}
+	else if (pb_down && *counter_pos > 0) // Checking pushbutton down and counter, to only do this, if PB down is pressed and the position led is [0] or higher.
+ 220:	44 23       	and	r20, r20
+ 222:	c1 f0       	breq	.+48     	; 0x254 <show_leds_1_process+0x68>
+ 224:	fc 01       	movw	r30, r24
+ 226:	20 81       	ld	r18, Z
+ 228:	31 81       	ldd	r19, Z+1	; 0x01
+ 22a:	21 15       	cp	r18, r1
+ 22c:	31 05       	cpc	r19, r1
+ 22e:	b9 f0       	breq	.+46     	; 0x25e <show_leds_1_process+0x72>
+	{
+		*counter_pos = *counter_pos - 1; // Decrement counter_pos.
+ 230:	21 50       	subi	r18, 0x01	; 1
+ 232:	31 09       	sbc	r19, r1
+ 234:	31 83       	std	Z+1, r19	; 0x01
+ 236:	20 83       	st	Z, r18
+		PORTC = (1<<(5 - *counter_pos)); //Left shift to set bit low between ( PC.5 - PC.1) --> (Led[0] - Led[4])
+ 238:	85 e0       	ldi	r24, 0x05	; 5
+ 23a:	90 e0       	ldi	r25, 0x00	; 0
+ 23c:	ac 01       	movw	r20, r24
+ 23e:	42 1b       	sub	r20, r18
+ 240:	53 0b       	sbc	r21, r19
+ 242:	81 e0       	ldi	r24, 0x01	; 1
+ 244:	90 e0       	ldi	r25, 0x00	; 0
+ 246:	02 c0       	rjmp	.+4      	; 0x24c <show_leds_1_process+0x60>
+ 248:	88 0f       	add	r24, r24
+ 24a:	99 1f       	adc	r25, r25
+ 24c:	4a 95       	dec	r20
+ 24e:	e2 f7       	brpl	.-8      	; 0x248 <show_leds_1_process+0x5c>
+ 250:	88 b9       	out	0x08, r24	; 8
+ 252:	08 95       	ret
+	}
+	else if (*counter_pos==0)
+ 254:	fc 01       	movw	r30, r24
+ 256:	80 81       	ld	r24, Z
+ 258:	91 81       	ldd	r25, Z+1	; 0x01
+ 25a:	89 2b       	or	r24, r25
+ 25c:	11 f4       	brne	.+4      	; 0x262 <show_leds_1_process+0x76>
+	{                                       //Init Led[0] high. --> PC.5
+		PORTC = (1<<(5 - *counter_pos));
+ 25e:	80 e2       	ldi	r24, 0x20	; 32
+ 260:	88 b9       	out	0x08, r24	; 8
+ 262:	08 95       	ret
+
+00000264 <_exit>:
+ 264:	f8 94       	cli
+
+00000266 <__stop_program>:
+ 266:	ff cf       	rjmp	.-2      	; 0x266 <__stop_program>
